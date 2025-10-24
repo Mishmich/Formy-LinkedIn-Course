@@ -15,12 +15,10 @@ public class Main {
 
         WebDriver driver = new ChromeDriver(options);
 
-        driver.get("https://formy-project.herokuapp.com/keypress");
-        WebElement name = driver.findElement(By.id("name"));
-        name.click();
-        name.sendKeys("Myshelle Mickova");
-        WebElement button = driver.findElement(By.id("button"));
-        button.click();
+        driver.get("https://formy-project.herokuapp.com/autocomplete");
+        WebElement autocomplete = driver.findElement(By.id("autocomplete"));
+        autocomplete.sendKeys("Bratislava Slovakia");
+        //skipping this one because the google suggestions are not working properly
 
         driver.quit();
     }
