@@ -1,6 +1,7 @@
 package mickova.test;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,19 +9,22 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         System.setProperty("webdriver.chrome.driver", "C:/Program Files/chromedriver-win64/chromedriver.exe/");
 
         WebDriver driver = new ChromeDriver(options);
 
-        driver.get("https://formy-project.herokuapp.com/keypress");
-        WebElement name = driver.findElement(By.id("name"));
-        name.click();
-        name.sendKeys("Myshelle Mickova");
-        WebElement button = driver.findElement(By.id("button"));
-        button.click();
+        driver.get("https://formy-project.herokuapp.com/modal");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement modalButton = driver.findElement(By.id("modal-button"));
+        modalButton.click();
+
+        WebElement closeButton = driver.findElement(By.id("close-button"));
+        Thread.sleep(3000);
+        js.executeScript("arguments[0].click();", closeButton);
+        Thread.sleep(3000);
 
         driver.quit();
     }
