@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 
 public class Main {
 
@@ -15,12 +16,14 @@ public class Main {
 
         WebDriver driver = new ChromeDriver(options);
 
-        driver.get("https://formy-project.herokuapp.com/keypress");
+        driver.get("https://formy-project.herokuapp.com/scroll");
         WebElement name = driver.findElement(By.id("name"));
-        name.click();
-        name.sendKeys("Myshelle Mickova");
-        WebElement button = driver.findElement(By.id("button"));
-        button.click();
+        Actions actions = new Actions(driver);
+        actions.moveToElement(name);
+        name.sendKeys("Mikaela Mickovicova");
+
+        WebElement date = driver.findElement(By.id("date"));
+        date.sendKeys("10/24/2025");
 
         driver.quit();
     }
