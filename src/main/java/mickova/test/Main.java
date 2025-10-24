@@ -15,13 +15,15 @@ public class Main {
 
         WebDriver driver = new ChromeDriver(options);
 
-        driver.get("https://formy-project.herokuapp.com/keypress");
-        WebElement name = driver.findElement(By.id("name"));
-        name.click();
-        name.sendKeys("Myshelle Mickova");
-        WebElement button = driver.findElement(By.id("button"));
-        button.click();
+        driver.get("https://formy-project.herokuapp.com/switch-window");
+        WebElement newTabButton = driver.findElement(By.id("new-tab-button"));
+        String originalHandle = driver.getWindowHandle();
 
+        // you are taken to the second window
+        newTabButton.click();
+
+        // you go back to the original window
+        driver.switchTo().window(originalHandle);
         driver.quit();
     }
 }
