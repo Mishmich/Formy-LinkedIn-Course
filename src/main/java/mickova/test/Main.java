@@ -8,20 +8,17 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         System.setProperty("webdriver.chrome.driver", "C:/Program Files/chromedriver-win64/chromedriver.exe/");
 
         WebDriver driver = new ChromeDriver(options);
 
-        driver.get("https://formy-project.herokuapp.com/keypress");
-        WebElement name = driver.findElement(By.id("name"));
-        name.click();
-        name.sendKeys("Myshelle Mickova");
-        WebElement button = driver.findElement(By.id("button"));
-        button.click();
-
+        driver.get("https://formy-project.herokuapp.com/fileupload");
+        WebElement uploadField = driver.findElement(By.id("file-upload-field"));
+        uploadField.sendKeys("emefka.png");
+        Thread.sleep(2000);
         driver.quit();
     }
 }
