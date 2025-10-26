@@ -22,6 +22,17 @@ public class Main {
         WebDriver driver = new ChromeDriver(options);
 
         driver.get("https://formy-project.herokuapp.com/form");
+
+        submitForm(driver);
+
+        waitForAlert(driver);
+
+        assertEquals("The form was successfully submitted!", getAlertText(driver));
+
+        driver.quit();
+    }
+
+    public static void submitForm(WebDriver driver) {
         driver.findElement(By.id("first-name")).sendKeys("Mikaila");
         driver.findElement(By.id("last-name")).sendKeys("Mitzkiewich");
         driver.findElement(By.id("job-title")).sendKeys("Tester");
@@ -32,11 +43,15 @@ public class Main {
         driver.findElement(By.id("datepicker")).sendKeys("10/26/2024");
         driver.findElement(By.id("datepicker")).sendKeys(Keys.RETURN);
         driver.findElement(By.cssSelector(".btn.btn-lg.btn-primary")).click();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement alert = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("alert")));
-        
-        assertEquals("The form was successfully submitted!", alert.getText());
+    }
 
-        driver.quit();
+    public static void waitForAlert(WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("alert")));
+    }
+
+    public static String getAlertText(WebDriver driver) {
+        WebElement alert = driver.findElement(By.className("alert"));
+        return alert.getText();
     }
 }
